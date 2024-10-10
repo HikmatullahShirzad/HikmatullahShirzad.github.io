@@ -1,2 +1,2 @@
-- [My First journal entry](entries/01_Intro.md)
-- [My Second  journal entry](entries/02_Intro.md)
+- [My First journal entry](entrie/1Journal.md)
+- [My Second  journal entry](entrie/2Journal.md)

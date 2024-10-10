@@ -1,3 +1,7 @@
+
+<a href="journal/">Click here to read my journal</a>
+
+
 # This is markdown
 
 markdown is a powerful formatting language, that is optimized for reading
