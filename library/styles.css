@@ -1,0 +1,12 @@
+body{
+        background-color:LightCyan;width:375px;
+}
+header{
+        background-color:LightSkyBlue;
+}
+td,th, table{
+        border:3px solid;width:300px;
+        border-collapse:collapse;
+}
+nav{
+ background-color:Bisque;width:100px;
