@@ -10,3 +10,19 @@ td,th, table{
 }
 nav{
  background-color:Bisque;width:100px;
+}
+body{ 
+    font-size:32px;
+} 
+h1{
+font-size:1.6em;
+} 
+main{
+    width:600px;
+    background-color:thistle;
+}
+ul{
+  width:80vw;
+  background-color:green;
+{
+
