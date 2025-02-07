@@ -1,0 +1,116 @@
+body{
+        background-color:Wheat;width:375px;
+}
+#fox{
+        background-color:SteelBlue;
+        width:300px;
+        height:120px;
+}
+#box {
+   background-color:SteelBlue;
+        width:250px;
+        height:100px;
+}
+td,th, table{
+        border:3px solid;width:300px;
+        border-collapse:collapse;
+}
+nav{
+ background-color:Bisque;width:100px;
+}
+body{
+    font-size:32px;
+}
+h1{
+font-size:0.8em;
+}
+main{
+    width:600px;
+    background-color:thistle;
+}
+ul{
+  width:80vw;
+  background-color:green;
+}
+
+#fox {
+  font-family: "Imperial Script", cursive;
+  font-weight: 400;
+  font-style: normal}
+#box {
+  font-family: "Playwrite DE VA Guides", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
+
+
+
+
+.page-container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  border: 2px solid #000000;
+  overflow: hidden;
+}
+.header {
+padding: 20px;
+margin-bottom: 10px;
+}
+
+.main-content {
+padding: 20px;
+margin-bottom: 20px;
+}
+
+.footer {
+padding: 10px;
+}
+
+
+
+
+#no{
+ background-color:Tan;
+        width:300px;
+        height:120px;
+}
+
+
+#on{
+ background-color:Tan;
+        width:300px;
+        height:120px;
+}
+#wizard{
+font-family: "Playwrite DE VA Guides", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+td,th, table{
+        border:3px solid;width:300px;
+        border-collapse:collapse;
+
+.pagecontainer {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  border: 2px solid #000000;
+  overflow: hidden;
+}
+.header {
+padding: 20px;
+margin-bottom: 10px;
+}
+
+.main-content {
+padding: 20px;
+margin-bottom: 20px;
+}
+
+.foter {
+padding: 10px;
+}
