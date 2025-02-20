@@ -1,0 +1,62 @@
+/* Styles for image1 */
+.image1 img {
+    width: 200px;
+    height: 200px;
+}
+
+/* Styles for image2 */
+.image2 img {
+    max-width: 100%;
+    min-width: 200px;
+}
+
+/* Styles for image3 */
+.image3 img {
+    max-height: 300px;
+    min-height: 150px;
+}
+
+/* Styles for image4 */
+.image4 img {
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+}
+
+/* Styles for image5 */
+.image5 img {
+    object-position: center;
+    width: 200px;
+    height: 200px;
+}
+
+/* Styles for image6 */
+.image6 img {
+    border: 5px solid black;
+    border-radius: 15px;
+}
+
+/* Styles for image7 */
+.image7 img {
+    box-shadow: 10px 10px 5px grey;
+}
+
+/* Styles for image8 */
+.image8 img {
+    opacity: 0.5;
+}
+
+/* Styles for image9 */
+.image9 img {
+    filter: grayscale(100%);
+}
+
+/* Styles for image10 */
+.image10 {
+    position: relative;
+    z-index: 1;
+}
+.image10 img {
+    position: absolute;
+    z-index: 2;
+}
