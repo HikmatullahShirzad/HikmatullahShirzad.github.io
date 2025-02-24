@@ -1,44 +1,44 @@
 .image1 img {
-    width: 300px;
-    height: 200px;
+    width: 600px;
+    height: 400px;
 }
 
 .image2 img {
     width: auto;
     height: auto;
-    max-width: 400px;
-    max-height: 300px;
+    max-width: 800px;
+    max-height: 600px;
 }
 
 .image3 img {
-    width: 500px;
-    height: 350px;
+    width: 700px;
+    height: 500px;
     object-fit: cover;
     object-position: center;
 }
 
 .image4 img {
-    width: 250px;
-    height: 180px;
-    border: 5px solid #000;
-    border-radius: 15px;
+    width: 500px;
+    height: 360px;
+    border: 7px solid #000;
+    border-radius: 20px;
 }
 
 .image5 img {
-    width: 450px;
-    height: 300px;
+    width: 550px;
+    height: 350px;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 .image6 img {
-    width: 380px;
-    height: 260px;
-    opacity: 0.7;
+    width: 490px;
+    height: 360px;
+    opacity: 0.9;
 }
 
 .image7 img {
-    width: 320px;
-    height: 240px;
+    width: 420px;
+    height: 290px;
     filter: grayscale(50%);
 }
 
