@@ -1,62 +1,49 @@
-/* Styles for image1 */
 .image1 img {
-    width: 200px;
+    width: 300px;
     height: 200px;
 }
 
-/* Styles for image2 */
 .image2 img {
-    max-width: 100%;
-    min-width: 200px;
-}
-
-/* Styles for image3 */
-.image3 img {
+    width: auto;
+    height: auto;
+    max-width: 400px;
     max-height: 300px;
-    min-height: 150px;
 }
 
-/* Styles for image4 */
-.image4 img {
+.image3 img {
+    width: 500px;
+    height: 350px;
     object-fit: cover;
-    width: 200px;
-    height: 200px;
-}
-
-/* Styles for image5 */
-.image5 img {
     object-position: center;
-    width: 200px;
-    height: 200px;
 }
 
-/* Styles for image6 */
-.image6 img {
-    border: 5px solid black;
+.image4 img {
+    width: 250px;
+    height: 180px;
+    border: 5px solid #000;
     border-radius: 15px;
 }
 
-/* Styles for image7 */
+.image5 img {
+    width: 450px;
+    height: 300px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.image6 img {
+    width: 380px;
+    height: 260px;
+    opacity: 0.7;
+}
+
 .image7 img {
-    box-shadow: 10px 10px 5px grey;
+    width: 320px;
+    height: 240px;
+    filter: grayscale(50%);
 }
 
-/* Styles for image8 */
 .image8 img {
-    opacity: 0.5;
+    width: 340px;
+    height: 220px;
 }
 
-/* Styles for image9 */
-.image9 img {
-    filter: grayscale(100%);
-}
-
-/* Styles for image10 */
-.image10 {
-    position: relative;
-    z-index: 1;
-}
-.image10 img {
-    position: absolute;
-    z-index: 2;
-}
