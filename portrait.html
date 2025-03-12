@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script src="js/init.js"></script>
+    <style>
+        .portrait-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: #ffeb3b;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .circle:hover {
+            transform: scale(1.1);
+        }
+
+        .face {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background-color: #ffe0b2;
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .eye {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #fff;
+            position: absolute;
+            top: 80px;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .eye.left {
+            left: 50px;
+        }
+
+        .eye.right {
+            right: 50px;
+        }
+
+        .pupil {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #000;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .mouth {
+            width: 80px;
+            height: 40px;
+            border-radius: 0 0 40px 40px;
+            background-color: #f44336;
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .hair {
+            width: 240px;
+            height: 60px;
+            background-color: #8d6e63;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50% 50% 0 0;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .circle:hover .face,
+        .circle:hover .eye,
+        .circle:hover .pupil,
+        .circle:hover .mouth,
+        .circle:hover .hair {
+            transform: scale(1.1);
+        }
+    </style>
+    <title>Emoji Self-Portrait</title>
+</head>
+<body>
+    <div class="portrait-container">
+        <div class="circle">
+            <div class="face">
+                <div class="hair"></div>
+                <div class="eye left">
+                    <div class="pupil"></div>
+                </div>
+                <div class="eye right">
+                    <div class="pupil"></div>
+                </div>
+                <div class="mouth"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
