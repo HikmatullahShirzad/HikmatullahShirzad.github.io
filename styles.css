@@ -34,12 +34,7 @@ a {
     font-size: 1.2em;
 }
 
-#no, #on {
-    background-color: Tan;
-    width: 80%;
-    color: #333;
-    font-size: 1.2em;
-}
+
 
 #wizard {
     font-family: "Playwrite DE VA Guides", cursive;
@@ -85,4 +80,22 @@ img {
     display: block;
     margin: 20px auto;
     border-radius: 10px;
+}
+
+
+
+.color-change {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+     text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+}
+
+.color-change:hover {
+    background-color: #f44336;
 }
