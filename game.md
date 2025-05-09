@@ -6,7 +6,7 @@
 #	controls:
 #		Using th arrow keys to aim at the goal
 #		click on the spacebar to shoot the ball
-#winning: the player has to socre 5 points before using all of his chances gave to him
+#winning: the player has to socre 5 points before using all of his chances gave to the player
 #losing: if the player scores less than 5 points in the chances gave to the player the player will lose the game
 
 
@@ -31,7 +31,8 @@
 
 #MVP Features
 #A player that can move
-#A ball that can aim and shoot
+#A ball that can move
+#A player that can aim and shooot
 
 
 click here for the MVP typep[GAME](a href="game.html")      
