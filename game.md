@@ -11,11 +11,13 @@
 
 
 #Difficulty level:
+
 #Medium level
 #The goalkeeper moves left and right slowly.  
 #The ball moves faster than the goalkeeper
 #The player has 8 shots to score 5 goals.    
 
+#Hard level
 #Hard level
 #The goalkeeper moves very fast and dives to block shots.  
 #The ball moves faster.  
@@ -27,11 +29,12 @@
 #The ball moves very fast and curves randomly. 
 #The player has 6 shots to score 5 goals.  
 
-#Features
-#A player that can aim and shoot the ball.  
-#A goalkeeper that moves and tries to block shots.  
-#A goal that gives points when the ball goes in.  
-#A scoreboard to track goals and misses.  
+#MVP Features
+#A player that can move
+#A ball that can aim and shoot
+
+
+click here for the MVP typep[GAME](a href="game.html")      
 
 
 
