@@ -21,7 +21,7 @@ const goalkeeper = {
   y: 120,
   width: 80,
   height: 20,
-  speed: 3,
+  speed: 5,
   direction: 1
 };
 
