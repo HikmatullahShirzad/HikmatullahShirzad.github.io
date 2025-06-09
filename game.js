@@ -1,189 +1,231 @@
-// the canvas and context
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
+// Get the canvas element from the page and set up drawing context
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
 
-// Player position and aiming
-let playerX = 275;
-let playerY = 300;
-let aimingAngle = 0; // degrees, 0 = straight up, range -60 to 60
+// --- Game objects and variables ---
 
-// the ball position and its movement
-let ballX = playerX;
-let ballY = playerY - 20;
-let ballSpeed = 0;
-let ballMoving = false;
-let ballVX = 0;
-let ballVY = 0;
-
-// Gthe goallies position
-const goalkeeper = {
-  x: 300,
-  y: 120,
-  width: 80,
-  height: 20,
-  speed: 5,
-  direction: 1
+// Paddle (the blue rectangle you move)
+let paddle = {
+    x: 210,           // horizontal position (from the left)
+    y: 370,           // vertical position (from the top, near bottom)
+    width: 80,        // paddle width
+    height: 15,       // paddle height
+    speed: 5,         // how fast it moves when you press a key
+    dx: 0             // current horizontal movement (0 = stopped)
 };
 
-// the state of the game
-let shotsLeft = 8;
-let goalsScored = 0;
-let gameOver = false;
+// Ball (the green circle that bounces)
+let ball = {
+    x: 250,           // horizontal position (center of the ball)
+    y: 200,           // vertical position
+    radius: 15,       // how big the ball is (radius)
+    dx: 3,            // how much the ball moves left/right each frame
+    dy: 3             // how much the ball moves up/down each frame
+};
 
-// drawing the games scene
-function drawGame() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+// Triangle (the red bonus shape that gives extra points)
+let triangle = {
+    x: Math.random() * 440 + 30,   // random horizontal spot (keeps it on screen)
+    y: Math.random() * 200 + 50,   // random vertical spot (keeps it near top)
+    size: 30,                      // size of the triangle
+    active: true                   // is the bonus available?
+};
 
-  // drawing soccer field
-  ctx.fillStyle = "green"; // Green field
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+let score = 0;                         // player's current score
+let highScore = 0;                     // highest score ever reached in this session
+if (localStorage.getItem("highScore")) {
+    highScore = parseInt(localStorage.getItem("highScore"));
+}
+let gameOver = false;                  // is the game over?
 
-  // the post for the goal
-  ctx.fillStyle = "white";
-  ctx.fillRect(150, 50, 300, 10); // crossbar
-  ctx.fillRect(150, 50, 10, 100); // left post
-  ctx.fillRect(440, 50, 10, 100); // right post
-
-  // drawing the  goallier
-  ctx.fillStyle = "red";
-  ctx.fillRect(goalkeeper.x - goalkeeper.width / 2, goalkeeper.y, goalkeeper.width, goalkeeper.height);
-
-  // drawing the player
-  ctx.fillStyle = "orange"; // Orange player
-  ctx.beginPath();
-  ctx.arc(playerX, playerY, 20, 0, Math.PI * 2);
-  ctx.fill();
-
-  // drawing the line for aiming
-  ctx.strokeStyle = "blue";
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.moveTo(playerX, playerY);
-  const rad = (aimingAngle * Math.PI) / 180;
-  const aimLength = 50;
-  ctx.lineTo(playerX + aimLength * Math.sin(rad), playerY - aimLength * Math.cos(rad));
-  ctx.stroke();
-
-  // drawing th eball and its position
-  ctx.fillStyle = "white"; // White ball
-  ctx.beginPath();
-  ctx.arc(ballX, ballY, 10, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.strokeStyle = "black"; // Black outline
-  ctx.stroke();
-
-  // drawing the scoreboard
-  ctx.fillStyle = "white";
-  ctx.font = "20px Arial";
-  ctx.fillText(`Goals: ${goalsScored}`, 10, 30);
-  ctx.fillText(`Shots Left: ${shotsLeft}`, 10, 60);
-
-  if (gameOver) {
-    ctx.fillStyle = "yellow";
-    ctx.font = "30px Arial";
-    const message = goalsScored >= 5 ? "You Win!" : "You Lose!";
-    ctx.fillText(message, canvas.width / 2 - 60, canvas.height / 2);
-  }
+// --- Scoreboard display function ---
+function updateScoreboard() {
+    // Show both current score and the best score so far
+    document.getElementById('score').innerHTML =
+      `Score: ${score} <span style="color:#ffa000;margin-left:16px;">| High Score: ${highScore}</span>`;
 }
 
-// updating the goallies position
-function updateGoalkeeper() {
-  goalkeeper.x += goalkeeper.speed * goalkeeper.direction;
-  if (goalkeeper.x + goalkeeper.width / 2 > 440 || goalkeeper.x - goalkeeper.width / 2 < 160) {
-    goalkeeper.direction *= -1;
-  }
+// --- Drawing functions ---
+
+// Draw the blue paddle (rectangle)
+function drawPaddle() {
+    ctx.fillStyle = '#1976d2';
+    ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
 }
 
-// checking for collisions and the movement of the ball
-function updateBall() {
-  if (!ballMoving) return;
+// Draw the green ball (circle)
+function drawBall() {
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    ctx.fillStyle = '#43a047';
+    ctx.fill();
+    ctx.closePath();
+}
 
-  ballX += ballVX;
-  ballY += ballVY;
-
-  // checking for collesions of th eball with the goallie
-  if (
-    ballY - 10 <= goalkeeper.y + goalkeeper.height &&
-    ballY + 10 >= goalkeeper.y &&
-    ballX + 10 >= goalkeeper.x - goalkeeper.width / 2 &&
-    ballX - 10 <= goalkeeper.x + goalkeeper.width / 2
-  ) {
-    // what will happen if the shot is blocked by the goallie
-    ballMoving = false;
-    shotsLeft--;
-    resetBall();
-    checkGameOver();
-    return;
-  }
-
-  // checking if the ball reached the goal line
-  if (ballY <= 50) {
-    if (ballX > 160 && ballX < 440) {
-      // Goal scored
-      goalsScored++;
+// Draw the red triangle (bonus shape)
+// Simply three points: top, bottom left, bottom right
+// i used goodle for some help
+function drawTriangle() {
+    if (triangle.active) {
+        ctx.beginPath();
+        ctx.moveTo(triangle.x, triangle.y); // Top corner
+        ctx.lineTo(triangle.x - triangle.size / 2, triangle.y + triangle.size); // Bottom left corner
+        ctx.lineTo(triangle.x + triangle.size / 2, triangle.y + triangle.size); // Bottom right corner
+        ctx.closePath();
+        ctx.fillStyle = "#d32f2f";
+        ctx.fill();
     }
-    ballMoving = false;
-    shotsLeft--;
-    resetBall();
-    checkGameOver();
-    return;
-  }
-
-  // what will happen if the ball gets out of the goal
-  if (ballY < 0 || ballX < 0 || ballX > canvas.width) {
-    ballMoving = false;
-    shotsLeft--;
-    resetBall();
-    checkGameOver();
-  }
 }
 
-// resetting the players position
-function resetBall() {
-  ballX = playerX;
-  ballY = playerY - 20;
-  ballVX = 0;
-  ballVY = 0;
-}
+// Draw everything onto the canvas, including Game Over message if needed
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // wipe the screen
+    drawPaddle();
+    drawBall();
+    drawTriangle();
 
-// checking if the game is over
-function checkGameOver() {
-  if (goalsScored >= 5) {
-    gameOver = true;
-  } else if (shotsLeft <= 0) {
-    gameOver = true;
-  }
-}
-
-// the controls for th emovemnt of the player
-document.addEventListener("keydown", (event) => {
-  if (gameOver) return;
-
-  if (event.key === "ArrowLeft") {
-    aimingAngle = Math.max(aimingAngle - 5, -60);
-  } else if (event.key === "ArrowRight") {
-    aimingAngle = Math.min(aimingAngle + 5, 60);
-  } else if (event.key === " ") {
-    if (!ballMoving && shotsLeft > 0) {
-      ballMoving = true;
-      const speed = 7;
-      const rad = (aimingAngle * Math.PI) / 180;
-      ballVX = speed * Math.sin(rad);
-      ballVY = -speed * Math.cos(rad);
+    // If the game is over, show the "Game Over" message
+    if (gameOver) {
+        ctx.font = "30px Arial";
+        ctx.fillStyle = "#d32f2f";
+        ctx.fillText("Game Over!", 170, 180);
+        ctx.font = "18px Arial";
+        ctx.fillStyle = "#0288d1";
+        ctx.fillText("Press Space to Restart", 160, 220);
     }
-  }
+}
+
+// --- Game mechanics ---
+
+// Move the paddle left or right, but keep it on the screen
+function movePaddle() {
+    paddle.x += paddle.dx;
+    if (paddle.x < 0) paddle.x = 0; // don't go off left edge
+    if (paddle.x + paddle.width > canvas.width) paddle.x = canvas.width - paddle.width; // don't go off right edge
+}
+
+// Move the ball and handle bounces, scoring, and game over
+function moveBall() {
+    ball.x += ball.dx;
+    ball.y += ball.dy;
+
+    // Bounce off the left and right walls
+    if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+        ball.dx *= -1;
+    }
+    // Bounce off the top wall
+    if (ball.y - ball.radius < 0) {
+        ball.dy *= -1;
+    }
+
+    // Bounce off the paddle (if ball hits the paddle, bounce up and add to score)
+    if (
+        ball.y + ball.radius > paddle.y &&
+        ball.x > paddle.x &&
+        ball.x < paddle.x + paddle.width
+    ) {
+        ball.dy *= -1; // bounce up
+        ball.y = paddle.y - ball.radius; // keep the ball above the paddle
+        score++; // add 1 point
+        // Update high score if this is your best run
+        if (score > highScore) {
+            highScore = score;
+            localStorage.setItem("highScore", highScore);
+        }
+        updateScoreboard();
+    }
+
+    // If the ball goes below the bottom of the screen, the game is over
+    if (ball.y - ball.radius > canvas.height) {
+        gameOver = true;
+        score = 0; // Optionally reset score here, or keep it until restart
+        updateScoreboard();
+    }
+
+    // If the ball touches the triangle bonus and it's still active, add bonus points!
+    // We check if the ball's center is within the triangle's 'bounding box'
+    if (
+        triangle.active &&
+        ball.x > triangle.x - triangle.size / 2 &&
+        ball.x < triangle.x + triangle.size / 2 &&
+        ball.y - ball.radius < triangle.y + triangle.size &&
+        ball.y + ball.radius > triangle.y
+    ) {
+        score += 3; // bonus points!
+        triangle.active = false; // remove the bonus after you collect it
+        if (score > highScore) {
+            highScore = score;
+            localStorage.setItem("highScore", highScore);
+        }
+        updateScoreboard();
+    }
+}
+
+// --- Keyboard controls ---
+
+// When a key is pressed, move the paddle or restart if needed
+document.addEventListener('keydown', function(e) {
+    if (e.code === 'ArrowLeft') {
+        paddle.dx = -paddle.speed; // move left
+    } else if (e.code === 'ArrowRight') {
+        paddle.dx = paddle.speed; // move right
+    } else if (e.code === 'Space' && gameOver) {
+        restartGame(); // restart if game is over
+    }
 });
 
-// Game loop
-function gameLoop() {
-  if (!gameOver) {
-    updateGoalkeeper();
-    updateBall();
-  }
-  drawGame();
-  requestAnimationFrame(gameLoop);
+// When the key is released, stop moving the paddle
+document.addEventListener('keyup', function(e) {
+    if (e.code === 'ArrowLeft' || e.code === 'ArrowRight') {
+        paddle.dx = 0;
+    }
+});
+
+// --- Restart everything to play again ---
+
+function restartGame() {
+    // Put the ball back in the middle of the screen at the top
+    ball.x = 250;
+    ball.y = 200;
+
+    // Make the ball start moving, randomly either to the left or right
+    ball.dx = 3 * (Math.random() > 0.5 ? 1 : -1);
+
+    // Always start with the ball moving downwards
+    ball.dy = 3;
+
+    // Move the paddle back to its starting spot near the bottom center
+    paddle.x = 210;
+
+    // Reset your score to zero for the new game
+    score = 0;
+
+    // Give the triangle a new random position somewhere near the top
+    triangle.x = Math.random() * 440 + 30;
+    triangle.y = Math.random() * 200 + 50;
+
+    // Make the triangle active again, so you can collect it for bonus points
+    triangle.active = true;
+
+    // The game is no longer over – you're starting fresh!
+    gameOver = false;
+
+    // Update the scoreboard so it shows the new (reset) score
+    updateScoreboard();
 }
 
+// --- Main game loop: update positions and redraw everything ---
+function update() {
+    if (!gameOver) {
+        movePaddle();
+        moveBall();
+    }
+    draw();
+    requestAnimationFrame(update); // repeat this function for the next frame
+}
 
-resetBall();
-gameLoop();
+updateScoreboard(); // show scores at the top at the start
+update(); // Start the game!
+
+
+
