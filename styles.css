@@ -1,43 +1,42 @@
 body {
-    background-color: Wheat;
-    font-size: 32px;
+    background-color: #f5deb3;
+    font-size: 1.2rem;
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
 }
 
-a {
-    text-decoration: none;
-    color: #333;
+header {
+    background: #345;
+    padding: 1rem;
+    text-align: center;
 }
 
-#fox, #box, #no, #on {
+.site-title {
     text-align: center;
     padding: 20px;
     border-radius: 10px;
     margin: 20px auto;
+    background-color: SteelBlue;
+    width: 80%;
+    color: #fff;
+    font-family: 'Pacifico', cursive;
+    font-size: 2.1em;
+    box-shadow: 0 2px 8px rgba(30,30,30,0.09);
 }
 
 #fox {
-    background-color: SteelBlue;
-    width: 80%;
-    color: #fff;
-    font-family: "Imperial Script", cursive;
-    font-size: 1.5em;
+    font-family: 'Imperial Script', cursive;
+    font-size: 2em;
 }
 
 #box {
-    background-color: SteelBlue;
-    width: 80%;
-    color: #fff;
-    font-family: "Playwrite DE VA Guides", cursive;
-    font-size: 1.2em;
+    font-family: 'Pacifico', cursive;
+    font-size: 1.7em;
 }
 
-
-
 #wizard {
-    font-family: "Playwrite DE VA Guides", cursive;
+    font-family: 'Pacifico', cursive;
     font-weight: 400;
     font-style: normal;
     text-align: center;
@@ -45,57 +44,124 @@ a {
 }
 
 .page-container {
-    width: 90%;
-    margin: 20px auto;
-    padding: 20px;
-    border: 2px solid #000;
-    border-radius: 10px;
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 25px;
+    border: 2px solid #333;
+    border-radius: 15px;
     background-color: #fff8dc;
+    box-shadow: 0 4px 24px rgba(50,40,0,0.07);
 }
 
-.header, .footer {
-    padding: 10px;
-    margin-bottom: 10px;
+.header {
+    padding: 15px;
+    margin-bottom: 15px;
     background-color: #f0ead6;
-    border-radius: 5px;
+    border-radius: 8px;
     text-align: center;
     font-size: 1.5em;
+    font-weight: bold;
 }
 
 .main-content {
     padding: 20px;
     background-color: #faf0e6;
-    border-radius: 5px;
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
 }
 
 .box {
-    background-color: LightGray;
-    margin-bottom: 20px;
-    padding: 20px;
-    border: 1px solid #000;
+    background-color: #f4f4f4;
+    margin-bottom: 16px;
+    padding: 18px 25px;
+    border: 1px solid #bbb;
     border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(160,160,160,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+    min-width: 180px;
+    text-align: center;
+    font-size: 1.1em;
 }
 
-img {
-    display: block;
-    margin: 20px auto;
-    border-radius: 10px;
+.box:hover {
+    box-shadow: 0 6px 24px rgba(30,30,80,0.12);
+    transform: translateY(-4px) scale(1.025);
+    background: #e6e6e6;
 }
 
+a {
+    text-decoration: none;
+    color: #29527a;
+    font-weight: 500;
+    transition: color 0.2s;
+}
 
+a:hover, a:focus {
+    color: #f44336;
+}
 
 .color-change {
     background-color: #4CAF50;
     color: white;
-    padding: 10px 20px;
+    padding: 14px 32px;
     border: none;
-    transition: background-color 0.3s ease-in-out;
-     text-align: center;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 20px auto;
+    border-radius: 22px;
+    margin: 0 0 18px 0;
+    font-size: 1.1em;
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(60,60,60,0.08);
+    transition: background-color 0.3s, color 0.2s;
 }
 
-.color-change:hover {
+.color-change:hover, .color-change:focus {
     background-color: #f44336;
+    color: #fff8dc;
+    outline: none;
+}
+
+img, .profile-img, .window-img {
+    display: block;
+    margin: 20px auto;
+    border-radius: 15px;
+    max-width: 100%;
+    height: auto;
+}
+
+.media-section {
+    text-align: center;
+    margin: 32px auto;
+}
+
+.media-video, .media-audio {
+    width: 90%;
+    max-width: 480px;
+    margin: 10px auto;
+    border-radius: 12px;
+    background: #222;
+}
+
+@media (max-width: 600px) {
+    .site-title,
+    #fox,
+    #box {
+        width: 97%;
+        font-size: 1.2em;
+        padding: 12px;
+    }
+    .page-container {
+        padding: 12px;
+    }
+    .main-content {
+        flex-direction: column;
+        gap: 8px;
+        padding: 10px;
+    }
+    .box {
+        min-width: unset;
+        font-size: 1em;
+    }
 }
